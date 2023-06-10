@@ -1,7 +1,7 @@
 steps:
 # build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/gcpdevops', '.'] #builds the docker image in cloudbuild
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/gke-app:1.0', '.'] #builds the docker image in cloudbuild
 #push container image
 - name: "gcr.io/cloud-builders/docker"
   args: ["push", "gcr.io/$PROJECT_ID/gcpdevops"]
@@ -10,7 +10,7 @@ steps:
   args:
     - run
     - --filename=gke-depl.yaml
-    - --image=gcr.io/$PROJECT_ID/gcpdevops
+    - --image=gcr.io/$PROJECT_ID/gke-app:1.0
     - --location=us-central1-c
     - --cluster=gcp-engineer-cluster
     - --namespace=gcp-devops-prod
